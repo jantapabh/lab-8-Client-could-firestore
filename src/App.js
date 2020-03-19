@@ -62,6 +62,7 @@ const App = () => {
     }
   }
 
+  
   const addTask = () => {
 
     let id = (task.length === 0) ? 1 : task[task.length-1].id + 1

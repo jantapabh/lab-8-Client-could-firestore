@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { useEffect, useState } from 'react'
 import { firestore } from './index'
 
 
 const App = () => {
+
+  const [name, setName] = useState('')
 
   const [task, setTask] = useState([
 
@@ -14,69 +14,77 @@ const App = () => {
 
   ])
 
-  const [name, setName] = useState('')
-
-  const retriveData = () => {
-
-    firestore.collection("task".onSnapshotS((snapshot) => {
-
-      console.log(snapshot);
-    let myTask =  snapshot.docs.map( d => {
-        const {id, name} = d.data()
-        console.log(id, name)
-        return {id, name}
-      })
-
-      setTask(myTask)
-
-    }))
-  }
-
 
   useEffect(() => {
 
-  
     retriveData()
 
   }, [])
 
+
+  const retriveData = () => {
+
+    firestore.collection("tasks").onSnapshot(snapshot => {
+
+      console.log(snapshot);
+
+      let myTask = snapshot.docs.map(d => {
+        const { id, name } = d.data()
+        console.log(id, name)
+        return { id, name }
+      })
+
+      setTask(myTask)
+
+    })
+  }
+
   const renderTask = () => {
+    console.log(task)
+    if (task && task.length) {
+      return task.map((task, index) => {
+        return (
 
-    if (task && task.length != 0) {
+          <li key={index}> {task.id} : {task.name}
+          <button onClick={() => deleteTask(task.id)}>Del</button>
+          </li>
+         )
+      })
 
-      return (
-        task.map((task, index) => {
-          <li key={index}>{task.id} : {task.name}</li>
-        })
-      )
     }
-  else {
-      return (
+    else {
+      return <li>No task</li>
 
-        <li>No task</li>
-      )
+    
     }
   }
 
 
   const addTask = () => {
 
-    let id = task[task.length-1].id+1;
-     firestore.collection("tasks").doc(id +' ').set({id, name})
+    let id = (task.length === 0) ? 1 : task[task.length-1].id + 1
+    firestore.collection("tasks").doc(id+'').set({ id, name})
 
   }
 
+  const deleteTask = (id) => {
 
-return (
+    firestore.collection("tasks").doc(id+'').delete()
 
-  <div>
-    <h1>To do</h1>
-    <input type="text" name="name" onChange={(e) => setName(e.target.value)} />
-    <button onClick={addTask}>SUB</button>
-    <ul>{renderTask()}</ul>
-  </div>
+  
 
-)
+  }
+
+  return (
+
+    <div>
+      <h1>To do</h1>
+      <input type="text" name="name" onChange={(e) => setName(e.target.value)} />
+      <button onClick={addTask}>ADD</button>
+      <ul style={{ display: 'flex', listStyle: 'none' }}>{renderTask()}</ul>
+    </div>
+
+  )
 
 }
 

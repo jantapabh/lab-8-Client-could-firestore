@@ -1,0 +1,23 @@
+.li {
+    position: relative;
+    width: 18opx;
+    height: 200px;
+    border-style: dashed;
+    margin: 0px 16px 16px 0px;
+    box-shadow: aqua;
+
+}
+
+.id {
+
+    position: absolute;
+    right: 4px;
+    top: 2px;
+}
+.name {
+
+    
+
+
+
+}

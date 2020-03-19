@@ -8,6 +8,7 @@ import { firestore } from './index'
 const App = () => {
 
   const [task, setTask] = useState([
+
     { id: 1, name: "do homewoke" },
     { id: 2, name: "Write Nodejs" }
 
@@ -25,8 +26,8 @@ const App = () => {
         console.log(id, name)
         return {id, name}
       })
+
       setTask(myTask)
-      
 
     }))
   }
@@ -57,9 +58,11 @@ const App = () => {
     }
   }
 
+
   const addTask = () => {
+
     let id = task[task.length-1].id+1;
-     firestore.collection("tasks").docs(id).set({id, name})
+     firestore.collection("tasks").doc(id +' ').set({id, name})
 
   }
 

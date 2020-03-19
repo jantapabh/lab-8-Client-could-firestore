@@ -4,9 +4,10 @@ li {
     position: relative;
     width: 180px;
     height: 200px;
-    border-style: dashed;
     margin: 0px 16px 16px 0px;
-    box-shadow: aqua;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    overflow: hidden;
 
 }
 
@@ -17,7 +18,8 @@ li {
     top: 2px;
 }
 .name {
-
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
     font-size: 2em;
     text-align: center;
     flex: 1;
@@ -29,11 +31,14 @@ li {
 }
 
 .button{
-   justify-content: center;
+
+   justify-content:center;
     width: 100px;
     height: 30px;
     display: flex;
+    align-items: center;
     /* flex-direction: row; */
+
 }
 
 .container {

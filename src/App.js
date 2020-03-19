@@ -27,7 +27,6 @@ const App = () => {
 
     firestore.collection("tasks").onSnapshot(snapshot => {
 
-      
       console.log(snapshot);
 
       let myTask = snapshot.docs.map(d => {

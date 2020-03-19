@@ -66,19 +66,19 @@ const App = () => {
   const addTask = () => {
 
     let id = (task.length === 0) ? 1 : task[task.length-1].id + 1
-    firestore.collection("task").doc(id+'').set({ id, name})
+    firestore.collection("tasks").doc(id+'').set({ id, name})
 
   }
 
   const deleteTask = (id) => {
 
-    firestore.collection("task").doc(id+'').delete()
+    firestore.collection("tasks").doc(id+'').delete()
 
   }
 
   const editTask = (id) => {
 
-    firestore.collection("task").doc(id+'').set({ id, name})
+    firestore.collection("tasks").doc(id+'').set({ id, name})
 
   }
 

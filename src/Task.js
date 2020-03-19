@@ -9,14 +9,17 @@ export default props => {
     return (
 
         <li>
-            <div>
+           
+            <div className="id">
                 {id}
-            </div>:
-            <div>
-                {id} : {name}
             </div>
-            <button onClick={() => deleteTask(id)}>Delete</button>
-            <button onClick={() => editTask(id)}>Edit</button>
+            <div className="name">
+                {name}
+            </div>
+            <div className="container">
+            <button className="green" onClick={() => deleteTask(id)}>Delete</button>
+            <button className="cblue" onClick={() => editTask(id)}>Edit</button>
+       </div>
         </li>
     )
 }

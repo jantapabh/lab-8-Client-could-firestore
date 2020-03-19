@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react'
 import { firestore } from './index'
+import Task from './Task'
 
 
 const App = () => {
@@ -45,16 +46,18 @@ const App = () => {
       return task.map((task, index) => {
         return (
 
-          <li key={index}> {task.id} : {task.name}
-          <button onClick={() => deleteTask(task.id)}>Del</button>
-          </li>
+          <Task key={index} task={task}
+          deleteTask={deleteTask}
+          editTask={editTask}
+          />
+       
          )
       })
 
     }
     else {
-      return <li>No task</li>
 
+      return <li>No task</li>
     
     }
   }
@@ -63,17 +66,22 @@ const App = () => {
   const addTask = () => {
 
     let id = (task.length === 0) ? 1 : task[task.length-1].id + 1
-    firestore.collection("tasks").doc(id+'').set({ id, name})
+    firestore.collection("task").doc(id+'').set({ id, name})
 
   }
 
   const deleteTask = (id) => {
 
-    firestore.collection("tasks").doc(id+'').delete()
-
-  
+    firestore.collection("task").doc(id+'').delete()
 
   }
+
+  const editTask = (id) => {
+
+    firestore.collection("task").doc(id+'').set({ id, name})
+
+  }
+
 
   return (
 
@@ -81,7 +89,7 @@ const App = () => {
       <h1>To do</h1>
       <input type="text" name="name" onChange={(e) => setName(e.target.value)} />
       <button onClick={addTask}>ADD</button>
-      <ul style={{ display: 'flex', listStyle: 'none' }}>{renderTask()}</ul>
+      <ul style={{ display:'flex', listStyle: 'none' }}>{renderTask()}</ul>
     </div>
 
   )

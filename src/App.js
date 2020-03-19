@@ -27,6 +27,7 @@ const App = () => {
 
     firestore.collection("tasks").onSnapshot(snapshot => {
 
+      
       console.log(snapshot);
 
       let myTask = snapshot.docs.map(d => {
@@ -62,7 +63,7 @@ const App = () => {
     }
   }
 
-  
+
   const addTask = () => {
 
     let id = (task.length === 0) ? 1 : task[task.length-1].id + 1
